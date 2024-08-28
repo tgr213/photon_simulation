@@ -1,144 +1,146 @@
+Running simulation for 1000 photons...
+Benchmark results saved to 'benchmark_results.csv'
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-     6   63.551 MiB 59726.555 MiB        1190   @profile
+     6   63.418 MiB 71007.422 MiB        1124   @profile
      7                                         def sample_henyey_greenstein(g, generator):
-     8   63.551 MiB -15896.500 MiB        1190       rand = generator.uniform(0.0, 1.0)
+     8   63.418 MiB    0.000 MiB        1124       rand = generator.uniform(0.0, 1.0)
      9                                         
-    10   63.551 MiB -15896.625 MiB        1190       if g == 0:
+    10   63.418 MiB    0.000 MiB        1124       if g == 0:
     11                                                 cos_theta = 2 * rand - 1
     12                                             else:
-    13   63.551 MiB -15896.625 MiB        1190           sqr_term = (1 - g * g) / (1 - g + 2 * g * rand)
-    14   63.551 MiB -15896.625 MiB        1190           cos_theta = (1 + g * g - sqr_term * sqr_term) / (2 * g)
+    13   63.418 MiB    0.000 MiB        1124           sqr_term = (1 - g * g) / (1 - g + 2 * g * rand)
+    14   63.418 MiB    0.000 MiB        1124           cos_theta = (1 + g * g - sqr_term * sqr_term) / (2 * g)
     15                                         
-    16   63.551 MiB -15896.375 MiB        1190       theta = np.arccos(cos_theta)
+    16   63.418 MiB    0.000 MiB        1124       theta = np.arccos(cos_theta)
     17                                         
-    18   63.551 MiB -15895.625 MiB        1190       sign = generator.choice([-1, 1])
-    19   63.551 MiB -15895.875 MiB        1190       phi = theta * sign
+    18   63.418 MiB    0.250 MiB        1124       sign = generator.choice([-1, 1])
+    19   63.418 MiB    0.000 MiB        1124       phi = theta * sign
     20                                         
-    21   63.551 MiB -15895.875 MiB        1190       return phi
+    21   63.418 MiB    0.000 MiB        1124       return phi
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    23   63.551 MiB 59726.555 MiB        1190   @profile
+    23   63.418 MiB 71007.422 MiB        1124   @profile
     24                                         def update_photon_angle(current_angle, g, generator):
-    25   63.551 MiB 59727.680 MiB        1190       deflection = sample_henyey_greenstein(g, generator)
-    26   63.551 MiB -15895.875 MiB        1190       new_angle = current_angle + deflection
-    27   63.551 MiB -15895.875 MiB        1190       new_angle = new_angle % (2 * np.pi)
+    25   63.418 MiB 71007.672 MiB        1124       deflection = sample_henyey_greenstein(g, generator)
+    26   63.418 MiB    0.000 MiB        1124       new_angle = current_angle + deflection
+    27   63.418 MiB    0.000 MiB        1124       new_angle = new_angle % (2 * np.pi)
     28                                         
-    29   63.551 MiB -15895.875 MiB        1190       if new_angle < 0:
+    29   63.418 MiB    0.000 MiB        1124       if new_angle < 0:
     30                                                 new_angle += 2 * np.pi
     31                                         
-    32   63.551 MiB -15895.875 MiB        1190       return new_angle
+    32   63.418 MiB    0.000 MiB        1124       return new_angle
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    34   63.551 MiB 50609.660 MiB        1005   @profile
+    34   63.418 MiB 63485.934 MiB        1005   @profile
     35                                         def photon_emitter(angle, v, sca_length, abs_length, init_coords, sensor_centers, sensor_r, g, generator, detec_x, detec_y):
-    36   63.551 MiB -13256.750 MiB        1005       total_time = 0
-    37   63.551 MiB -13256.750 MiB        1005       init_x, init_y = init_coords[0], init_coords[1]
-    38   63.551 MiB -13256.750 MiB        1005       traj_x, traj_y = [init_x], [init_y]
-    39   63.551 MiB -13256.750 MiB        1005       dist_traveled = 0
-    40   63.551 MiB -29152.625 MiB        2195       while True:
-    41   63.551 MiB -29152.625 MiB        2195           samp_sca = np.random.exponential(sca_length)
-    42   63.551 MiB -29152.625 MiB        2195           samp_abs = np.random.exponential(abs_length)
-    43   63.551 MiB -29152.625 MiB        2195           samp_dist = min(samp_sca, samp_abs)  # Distance until event
+    36   63.418 MiB    0.000 MiB        1005       total_time = 0
+    37   63.418 MiB    0.000 MiB        1005       init_x, init_y = init_coords[0], init_coords[1]
+    38   63.418 MiB    0.000 MiB        1005       traj_x, traj_y = [init_x], [init_y]
+    39   63.418 MiB    0.000 MiB        1005       dist_traveled = 0
+    40   63.418 MiB    0.000 MiB        2129       while True:
+    41   63.418 MiB    0.000 MiB        2129           samp_sca = np.random.exponential(sca_length)
+    42   63.418 MiB    0.000 MiB        2129           samp_abs = np.random.exponential(abs_length)
+    43   63.418 MiB    0.000 MiB        2129           samp_dist = min(samp_sca, samp_abs)  # Distance until event
     44                                         
-    45   63.551 MiB -29152.625 MiB        2195           dx = samp_dist * np.cos(angle)
-    46   63.551 MiB -29152.625 MiB        2195           dy = samp_dist * np.sin(angle)
-    47   63.551 MiB -29152.625 MiB        2195           prev_x, prev_y = traj_x[-1], traj_y[-1]
-    48   63.551 MiB -29152.625 MiB        2195           new_x = prev_x + dx
-    49   63.551 MiB -29152.625 MiB        2195           new_y = prev_y + dy
-    50   63.551 MiB 110319.340 MiB        2195           traj_x, traj_y, update_time, index = update_traj(traj_x, traj_y, prev_x, prev_y, new_x, new_y, angle, v, sensor_centers, sensor_r, detec_x, detec_y)
-    51   63.551 MiB -29170.625 MiB        2195           total_time += update_time
-    52   63.551 MiB -29170.625 MiB        2195           dist_traveled += np.sqrt((new_x - prev_x) ** 2 + (new_y - prev_y) ** 2)
-    53   63.551 MiB -29170.625 MiB        2195           if index >= -1:  # Meaning intersect or outside wall
-    54   63.551 MiB -3605.125 MiB         283               return traj_x, traj_y, total_time, dist_traveled, index
-    55   63.551 MiB -25565.500 MiB        1912           if samp_dist == samp_abs:  # Absorption
-    56   63.551 MiB -9668.875 MiB         722               return traj_x, traj_y, total_time, dist_traveled, index
+    45   63.418 MiB    0.000 MiB        2129           dx = samp_dist * np.cos(angle)
+    46   63.418 MiB    0.000 MiB        2129           dy = samp_dist * np.sin(angle)
+    47   63.418 MiB    0.000 MiB        2129           prev_x, prev_y = traj_x[-1], traj_y[-1]
+    48   63.418 MiB    0.000 MiB        2129           new_x = prev_x + dx
+    49   63.418 MiB    0.000 MiB        2129           new_y = prev_y + dy
+    50   63.418 MiB 134494.105 MiB        2129           traj_x, traj_y, update_time, index = update_traj(traj_x, traj_y, prev_x, prev_y, new_x, new_y, angle, v, sensor_centers, sensor_r, detec_x, detec_y)
+    51   63.418 MiB    0.000 MiB        2129           total_time += update_time
+    52   63.418 MiB    0.000 MiB        2129           dist_traveled += np.sqrt((new_x - prev_x) ** 2 + (new_y - prev_y) ** 2)
+    53   63.418 MiB    0.000 MiB        2129           if index >= -1:  # Meaning intersect or outside wall
+    54   63.418 MiB    0.000 MiB         293               return traj_x, traj_y, total_time, dist_traveled, index
+    55   63.418 MiB    0.000 MiB        1836           if samp_dist == samp_abs:  # Absorption
+    56   63.418 MiB    0.000 MiB         712               return traj_x, traj_y, total_time, dist_traveled, index
     57                                                 else:
-    58   63.551 MiB 59727.680 MiB        1190               angle = update_photon_angle(angle, g, generator)
+    58   63.418 MiB 71007.672 MiB        1124               angle = update_photon_angle(angle, g, generator)
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    60   63.551 MiB 110337.340 MiB        2195   @profile
+    60   63.418 MiB 134493.605 MiB        2129   @profile
     61                                         def update_traj(traj_x, traj_y, init_x, init_y, final_x, final_y, angle, v, sensor_centers, sensor_r, detec_x, detec_y):
-    62   63.551 MiB -29152.625 MiB        2195       dis = np.sqrt((final_x - init_x) ** 2 + (final_y - init_y) ** 2)
-    63   63.551 MiB -29152.625 MiB        2195       speed = v
-    64   63.551 MiB -29152.625 MiB        2195       time = dis / speed
+    62   63.418 MiB    0.000 MiB        2129       dis = np.sqrt((final_x - init_x) ** 2 + (final_y - init_y) ** 2)
+    63   63.418 MiB    0.000 MiB        2129       speed = v
+    64   63.418 MiB    0.000 MiB        2129       time = dis / speed
     65                                         
-    66   63.551 MiB 110319.340 MiB        2195       intersect, index, inter_coords = check_intersection(init_x, init_y, final_x, final_y, sensor_centers, sensor_r, detec_x, detec_y)
-    67   63.551 MiB -29170.625 MiB        2195       if intersect:
-    68   63.551 MiB -3605.125 MiB         283           traj_x.append(inter_coords[0])
-    69   63.551 MiB -3605.125 MiB         283           traj_y.append(inter_coords[1])
-    70   63.551 MiB -3605.125 MiB         283           return traj_x, traj_y, time, index
+    66   63.418 MiB 134494.105 MiB        2129       intersect, index, inter_coords = check_intersection(init_x, init_y, final_x, final_y, sensor_centers, sensor_r, detec_x, detec_y)
+    67   63.418 MiB    0.000 MiB        2129       if intersect:
+    68   63.418 MiB    0.000 MiB         293           traj_x.append(inter_coords[0])
+    69   63.418 MiB    0.000 MiB         293           traj_y.append(inter_coords[1])
+    70   63.418 MiB    0.000 MiB         293           return traj_x, traj_y, time, index
     71                                         
-    72   63.551 MiB -25565.500 MiB        1912       traj_x.append(final_x)
-    73   63.551 MiB -25565.500 MiB        1912       traj_y.append(final_y)
-    74   63.551 MiB -25565.500 MiB        1912       return traj_x, traj_y, time, -2
+    72   63.418 MiB    0.000 MiB        1836       traj_x.append(final_x)
+    73   63.418 MiB    0.000 MiB        1836       traj_y.append(final_y)
+    74   63.418 MiB    0.000 MiB        1836       return traj_x, traj_y, time, -2
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    76   63.551 MiB 110337.340 MiB        2195   @profile
+    76   63.418 MiB 134493.605 MiB        2129   @profile
     77                                         def check_intersection(prev_x, prev_y, curr_x, curr_y, sensor_centers, sensor_r, detec_x, detec_y):
-    78   63.551 MiB 110319.215 MiB        2195       coords, index = check_sensors(prev_x, prev_y, curr_x, curr_y, sensor_centers, sensor_r)
-    79   63.551 MiB -29170.750 MiB        2195       if index >= 0:
-    80   63.551 MiB -1420.250 MiB         113           return True, index, coords
-    81   63.551 MiB -27750.500 MiB        2082       elif (curr_x <= 0 or curr_x >= detec_x or curr_y <= 0 or curr_y >= detec_y):  # Outside walls
-    82   63.551 MiB 8618.258 MiB         170           curr_x, curr_y = get_wall_coords(prev_x, prev_y, curr_x, curr_y, detec_x, detec_y)
-    83   63.551 MiB -2184.875 MiB         170           return True, -1, (curr_x, curr_y)
+    78   63.418 MiB 134494.105 MiB        2129       coords, index = check_sensors(prev_x, prev_y, curr_x, curr_y, sensor_centers, sensor_r)
+    79   63.418 MiB    0.000 MiB        2129       if index >= 0:
+    80   63.418 MiB    0.000 MiB         120           return True, index, coords
+    81   63.418 MiB    0.000 MiB        2009       elif (curr_x <= 0 or curr_x >= detec_x or curr_y <= 0 or curr_y >= detec_y):  # Outside walls
+    82   63.418 MiB 10926.684 MiB         173           curr_x, curr_y = get_wall_coords(prev_x, prev_y, curr_x, curr_y, detec_x, detec_y)
+    83   63.418 MiB    0.000 MiB         173           return True, -1, (curr_x, curr_y)
     84                                         
-    85   63.551 MiB -25565.500 MiB        1912       return False, -2, (0, 0)
+    85   63.418 MiB    0.000 MiB        1836       return False, -2, (0, 0)
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-    87   63.551 MiB 8618.133 MiB         170   @profile
+    87   63.418 MiB 10926.684 MiB         173   @profile
     88                                         def get_wall_coords(prev_x, prev_y, curr_x, curr_y, detec_x, detec_y):
-    89   63.551 MiB -2185.000 MiB         170       wall_boundaries = {'left': 0, 'right': detec_x, 'bottom': 0, 'top': detec_y}
-    90   63.551 MiB -2185.000 MiB         170       intersects = []
+    89   63.418 MiB    0.000 MiB         173       wall_boundaries = {'left': 0, 'right': detec_x, 'bottom': 0, 'top': detec_y}
+    90   63.418 MiB    0.000 MiB         173       intersects = []
     91                                         
-    92   63.551 MiB -2184.875 MiB         170       if curr_x < wall_boundaries['left']:
-    93   63.551 MiB -903.375 MiB          72           t = (wall_boundaries['left'] - prev_x) / (curr_x - prev_x)
-    94   63.551 MiB -903.375 MiB          72           y_intersect = prev_y + t * (curr_y - prev_y)
-    95   63.551 MiB -903.375 MiB          72           if 0 <= t <= 1 and wall_boundaries['bottom'] <= y_intersect <= wall_boundaries['top']:
-    96   63.551 MiB -903.375 MiB          72               intersects.append((wall_boundaries['left'], y_intersect))
+    92   63.418 MiB    0.000 MiB         173       if curr_x < wall_boundaries['left']:
+    93   63.418 MiB    0.000 MiB          72           t = (wall_boundaries['left'] - prev_x) / (curr_x - prev_x)
+    94   63.418 MiB    0.000 MiB          72           y_intersect = prev_y + t * (curr_y - prev_y)
+    95   63.418 MiB    0.000 MiB          72           if 0 <= t <= 1 and wall_boundaries['bottom'] <= y_intersect <= wall_boundaries['top']:
+    96   63.418 MiB    0.000 MiB          69               intersects.append((wall_boundaries['left'], y_intersect))
     97                                         
-    98   63.551 MiB -2184.875 MiB         170       if curr_x > wall_boundaries['right']:
-    99   63.551 MiB -700.875 MiB          52           t = (wall_boundaries['right'] - prev_x) / (curr_x - prev_x)
-   100   63.551 MiB -700.875 MiB          52           y_intersect = prev_y + t * (curr_y - prev_y)
-   101   63.551 MiB -700.875 MiB          52           if 0 <= t <= 1 and wall_boundaries['bottom'] <= y_intersect <= wall_boundaries['top']:
-   102   63.551 MiB -700.875 MiB          52               intersects.append((wall_boundaries['right'], y_intersect))
+    98   63.418 MiB    0.000 MiB         173       if curr_x > wall_boundaries['right']:
+    99   63.418 MiB    0.000 MiB          59           t = (wall_boundaries['right'] - prev_x) / (curr_x - prev_x)
+   100   63.418 MiB    0.000 MiB          59           y_intersect = prev_y + t * (curr_y - prev_y)
+   101   63.418 MiB    0.000 MiB          59           if 0 <= t <= 1 and wall_boundaries['bottom'] <= y_intersect <= wall_boundaries['top']:
+   102   63.418 MiB    0.000 MiB          57               intersects.append((wall_boundaries['right'], y_intersect))
    103                                         
-   104   63.551 MiB -2184.875 MiB         170       if curr_y < wall_boundaries['bottom']:
-   105   63.551 MiB -365.125 MiB          27           t = (wall_boundaries['bottom'] - prev_y) / (curr_y - prev_y)
-   106   63.551 MiB -365.125 MiB          27           x_intersect = prev_x + t * (curr_x - prev_x)
-   107   63.551 MiB -365.125 MiB          27           if 0 <= t <= 1 and wall_boundaries['left'] <= x_intersect <= wall_boundaries['right']:
-   108   63.551 MiB -317.750 MiB          24               intersects.append((x_intersect, wall_boundaries['bottom']))
+   104   63.418 MiB    0.000 MiB         173       if curr_y < wall_boundaries['bottom']:
+   105   63.418 MiB    0.000 MiB          18           t = (wall_boundaries['bottom'] - prev_y) / (curr_y - prev_y)
+   106   63.418 MiB    0.000 MiB          18           x_intersect = prev_x + t * (curr_x - prev_x)
+   107   63.418 MiB    0.000 MiB          18           if 0 <= t <= 1 and wall_boundaries['left'] <= x_intersect <= wall_boundaries['right']:
+   108   63.418 MiB    0.000 MiB          17               intersects.append((x_intersect, wall_boundaries['bottom']))
    109                                         
-   110   63.551 MiB -2184.875 MiB         170       if curr_y > wall_boundaries['top']:
-   111   63.551 MiB -310.250 MiB          25           t = (wall_boundaries['top'] - prev_y) / (curr_y - prev_y)
-   112   63.551 MiB -310.250 MiB          25           x_intersect = prev_x + t * (curr_x - prev_x)
-   113   63.551 MiB -310.250 MiB          25           if 0 <= t <= 1 and wall_boundaries['left'] <= x_intersect <= wall_boundaries['right']:
-   114   63.551 MiB -262.875 MiB          22               intersects.append((x_intersect, wall_boundaries['top']))
+   110   63.418 MiB    0.000 MiB         173       if curr_y > wall_boundaries['top']:
+   111   63.418 MiB    0.000 MiB          34           t = (wall_boundaries['top'] - prev_y) / (curr_y - prev_y)
+   112   63.418 MiB    0.000 MiB          34           x_intersect = prev_x + t * (curr_x - prev_x)
+   113   63.418 MiB    0.000 MiB          34           if 0 <= t <= 1 and wall_boundaries['left'] <= x_intersect <= wall_boundaries['right']:
+   114   63.418 MiB    0.000 MiB          30               intersects.append((x_intersect, wall_boundaries['top']))
    115                                         
-   116   63.551 MiB -2184.875 MiB         170       if intersects:
-   117   63.551 MiB -2184.875 MiB         170           return intersects[0]
+   116   63.418 MiB    0.000 MiB         173       if intersects:
+   117   63.418 MiB    0.000 MiB         173           return intersects[0]
    118                                             else:
    119                                                 return curr_x, curr_y
 
@@ -147,86 +149,82 @@ Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-   121   63.551 MiB 110337.465 MiB        2195   @profile
+   121   63.418 MiB 134493.855 MiB        2129   @profile
    122                                         def check_sensors(prev_x, prev_y, curr_x, curr_y, sensor_centers, sensor_r):
-   123   63.551 MiB -2875310.125 MiB      216146       for i, (x_cent, y_cent) in enumerate(sensor_centers):
-   124   63.551 MiB -2847561.500 MiB      214064           A = prev_x - x_cent
-   125   63.551 MiB -2847563.375 MiB      214064           B = curr_x - prev_x
-   126   63.551 MiB -2847565.125 MiB      214064           C = prev_y - y_cent
-   127   63.551 MiB -2847566.625 MiB      214064           D = curr_y - prev_y
+   123   63.418 MiB    0.000 MiB      209495       for i, (x_cent, y_cent) in enumerate(sensor_centers):
+   124   63.418 MiB    0.000 MiB      207486           A = prev_x - x_cent
+   125   63.418 MiB    0.000 MiB      207486           B = curr_x - prev_x
+   126   63.418 MiB    0.000 MiB      207486           C = prev_y - y_cent
+   127   63.418 MiB    0.000 MiB      207486           D = curr_y - prev_y
    128                                         
-   129   63.551 MiB -2847568.250 MiB      214064           a = B ** 2 + D ** 2
-   130   63.551 MiB -2847570.250 MiB      214064           b = 2 * (A * B + C * D)
-   131   63.551 MiB -2847571.625 MiB      214064           c = A ** 2 + C ** 2 - sensor_r ** 2
+   129   63.418 MiB    0.000 MiB      207486           a = B ** 2 + D ** 2
+   130   63.418 MiB    0.000 MiB      207486           b = 2 * (A * B + C * D)
+   131   63.418 MiB    0.000 MiB      207486           c = A ** 2 + C ** 2 - sensor_r ** 2
    132                                         
-   133   63.551 MiB -2847572.750 MiB      214064           discriminant = b ** 2 - 4 * a * c
+   133   63.418 MiB    0.000 MiB      207486           discriminant = b ** 2 - 4 * a * c
    134                                         
-   135   63.551 MiB -2847574.625 MiB      214064           if discriminant < 0:
-   136   63.551 MiB -2833215.750 MiB      212977               continue
+   135   63.418 MiB    0.125 MiB      207486           if discriminant < 0:
+   136   63.418 MiB    0.000 MiB      206446               continue
    137                                         
-   138   63.551 MiB -14360.625 MiB        1087           sqrt_discriminant = np.sqrt(discriminant)
+   138   63.418 MiB    0.000 MiB        1040           sqrt_discriminant = np.sqrt(discriminant)
    139                                         
-   140   63.551 MiB -14360.625 MiB        1087           t1 = (-b - sqrt_discriminant) / (2 * a)
-   141   63.551 MiB -14360.625 MiB        1087           t2 = (-b + sqrt_discriminant) / (2 * a)
+   140   63.418 MiB    0.125 MiB        1040           t1 = (-b - sqrt_discriminant) / (2 * a)
+   141   63.418 MiB    0.000 MiB        1040           t2 = (-b + sqrt_discriminant) / (2 * a)
    142                                         
-   143   63.551 MiB -14360.625 MiB        1087           if (0 <= t1 <= 1) or (0 <= t2 <= 1):
-   144   63.551 MiB -1420.250 MiB         113               return (x_cent, y_cent), i
+   143   63.418 MiB    0.000 MiB        1040           if (0 <= t1 <= 1) or (0 <= t2 <= 1):
+   144   63.418 MiB    0.000 MiB         120               return (x_cent, y_cent), i
    145                                         
-   146   63.551 MiB -27750.500 MiB        2082       return False, -2
+   146   63.418 MiB    0.000 MiB        2009       return False, -2
 
 
 Filename: benchmark.py
 
 Line #    Mem usage    Increment  Occurrences   Line Contents
 =============================================================
-   148   63.426 MiB   62.801 MiB           6   @profile
+   148   62.918 MiB   62.293 MiB           6   @profile
    149                                         def run_simulation(n_trajs, detec_x, detec_y, sensor_d, n_sensors, g, emitter_coords):
-   150   63.426 MiB    0.000 MiB           6       c = 3e8
-   151   63.426 MiB    0.000 MiB           6       n_ice = 1.31
-   152   63.426 MiB    0.000 MiB           6       c_ice = c / n_ice
+   150   62.918 MiB    0.000 MiB           6       c = 3e8
+   151   62.918 MiB    0.000 MiB           6       n_ice = 1.31
+   152   62.918 MiB    0.000 MiB           6       c_ice = c / n_ice
    153                                         
-   154   63.426 MiB    0.000 MiB           6       sensor_r = sensor_d / 2
+   154   62.918 MiB    0.000 MiB           6       sensor_r = sensor_d / 2
    155                                         
-   156   63.426 MiB    0.000 MiB           6       sensor_x = np.linspace(sensor_d, detec_x - sensor_d, int(np.sqrt(n_sensors)))
-   157   63.426 MiB    0.000 MiB           6       sensor_y = np.linspace(sensor_d, detec_y - sensor_d, int(np.sqrt(n_sensors)))
+   156   62.918 MiB    0.000 MiB           6       sensor_x = np.linspace(sensor_d, detec_x - sensor_d, int(np.sqrt(n_sensors)))
+   157   62.918 MiB    0.000 MiB           6       sensor_y = np.linspace(sensor_d, detec_y - sensor_d, int(np.sqrt(n_sensors)))
    158                                         
-   159   63.426 MiB    0.000 MiB           6       X, Y = np.meshgrid(sensor_x, sensor_y)
+   159   62.918 MiB    0.000 MiB           6       X, Y = np.meshgrid(sensor_x, sensor_y)
    160                                         
    161                                             # Sensor centers array
-   162   63.426 MiB    0.000 MiB           6       sensor_centers = np.vstack([X.ravel(), Y.ravel()]).T
+   162   62.918 MiB    0.000 MiB           6       sensor_centers = np.vstack([X.ravel(), Y.ravel()]).T
    163                                         
-   164   63.426 MiB    0.000 MiB           6       traj_times = np.zeros(n_trajs)
-   165   63.426 MiB    0.000 MiB           6       traj_dist = np.zeros(n_trajs)
-   166   63.426 MiB    0.000 MiB           6       sensor_hits = []
-   167   63.426 MiB    0.000 MiB           6       sensor_hit_times = []
-   168   63.426 MiB    0.000 MiB           6       all_trajs_x = []
-   169   63.426 MiB    0.000 MiB           6       all_trajs_y = []
+   164   62.918 MiB    0.000 MiB           6       traj_times = np.zeros(n_trajs)
+   165   62.918 MiB    0.000 MiB           6       traj_dist = np.zeros(n_trajs)
+   166   62.918 MiB    0.000 MiB           6       sensor_hits = []
+   167   62.918 MiB    0.000 MiB           6       sensor_hit_times = []
+   168   62.918 MiB    0.000 MiB           6       all_trajs_x = []
+   169   62.918 MiB    0.000 MiB           6       all_trajs_y = []
    170                                         
-   171   63.426 MiB    0.000 MiB           6       no_sensor_dist = []
-   172   63.426 MiB    0.000 MiB           6       no_sensor_times = []
+   171   62.918 MiB    0.000 MiB           6       no_sensor_dist = []
+   172   62.918 MiB    0.000 MiB           6       no_sensor_times = []
    173                                         
-   174   63.426 MiB    0.000 MiB           6       sensor_hit_indices = []
+   174   62.918 MiB    0.000 MiB           6       sensor_hit_indices = []
    175                                         
-   176   63.426 MiB    0.125 MiB           6       generator = np.random.default_rng()
+   176   62.918 MiB    0.125 MiB           6       generator = np.random.default_rng()
    177                                         
-   178   63.551 MiB -13273.875 MiB        1011       for i in range(n_trajs):
-   179   63.551 MiB 50592.785 MiB        1005           traj_x, traj_y, final_time, dist_traveled, index = photon_emitter(np.random.uniform(0, 2 * np.pi), c_ice, 7, 11, init_coords=emitter_coords, sensor_centers=sensor_centers, sensor_r=sensor_r, g=g, generator=generator, detec_x=detec_x, detec_y=detec_y)
-   180   63.551 MiB -13273.875 MiB        1005           traj_times[i] = final_time
-   181   63.551 MiB -13273.875 MiB        1005           traj_dist[i] = dist_traveled
-   182   63.551 MiB -13273.875 MiB        1005           all_trajs_x.append(traj_x)
-   183   63.551 MiB -13273.750 MiB        1005           all_trajs_y.append(traj_y)
+   178   63.418 MiB    0.000 MiB        1011       for i in range(n_trajs):
+   179   63.418 MiB 63486.684 MiB        1005           traj_x, traj_y, final_time, dist_traveled, index = photon_emitter(np.random.uniform(0, 2 * np.pi), c_ice, 7, 11, init_coords=emitter_coords, sensor_centers=sensor_centers, sensor_r=sensor_r, g=g, generator=generator, detec_x=detec_x, detec_y=detec_y)
+   180   63.418 MiB    0.000 MiB        1005           traj_times[i] = final_time
+   181   63.418 MiB    0.000 MiB        1005           traj_dist[i] = dist_traveled
+   182   63.418 MiB    0.000 MiB        1005           all_trajs_x.append(traj_x)
+   183   63.418 MiB    0.000 MiB        1005           all_trajs_y.append(traj_y)
    184                                         
-   185   63.551 MiB -13273.875 MiB        1005           if index >= 0:
-   186   63.551 MiB -1420.250 MiB         113               sensor_hits.append(index)
-   187   63.551 MiB -1420.250 MiB         113               sensor_hit_times.append(final_time)
-   188   63.551 MiB -1420.250 MiB         113               sensor_hit_indices.append(i)
-   189   63.551 MiB -13273.875 MiB        1005           if index < 0:
-   190   63.551 MiB -11853.625 MiB         892               no_sensor_dist.append(dist_traveled)
-   191   63.551 MiB -11853.625 MiB         892               no_sensor_times.append(final_time)
+   185   63.418 MiB    0.000 MiB        1005           if index >= 0:
+   186   63.418 MiB    0.000 MiB         120               sensor_hits.append(index)
+   187   63.418 MiB    0.000 MiB         120               sensor_hit_times.append(final_time)
+   188   63.418 MiB    0.000 MiB         120               sensor_hit_indices.append(i)
+   189   63.418 MiB    0.000 MiB        1005           if index < 0:
+   190   63.418 MiB    0.000 MiB         885               no_sensor_dist.append(dist_traveled)
+   191   63.418 MiB    0.000 MiB         885               no_sensor_times.append(final_time)
    192                                         
-   193   63.426 MiB  -17.000 MiB           6       return traj_times, traj_dist, sensor_hits, sensor_hit_times, all_trajs_x, all_trajs_y, no_sensor_dist, no_sensor_times, sensor_hit_indices
-
-
-(photospline_venv) jack@jack-ThinkPad-T14-Gen-2a:~/photon_prop$ 
-(photospline_venv) jack@jack-ThinkPad-T14-Gen-2a:~/photon_prop$ 
+   193   63.418 MiB    0.000 MiB           6       return traj_times, traj_dist, sensor_hits, sensor_hit_times, all_trajs_x, all_trajs_y, no_sensor_dist, no_sensor_times, sensor_hit_indices
 
